@@ -19,25 +19,51 @@ Installer for Modello
 %package xwalk
 Summary: The Xwalk version of Modello Installer
 Requires:   crosswalk
+Requires:   Modello_AMBSimulator
+Requires:   Modello_Appmanager
+Requires:   Modello_Common
+Requires:   Modello_Dashboard
+Requires:   Modello_Homescreen
+Requires:   Modello_Hvac
+Requires:   Modello_Multimediaplayer
+Requires:   Modello_Nav
+Requires:   Modello_Phone
+Requires:   Modello_SDL
+Requires:   tizen-platform-config
 
 %description xwalk
 Installs Modello using Xwalk
 
 %post xwalk
 
-for list in $(find /opt/usr/apps/.preinstallWidgets/ -name "Modello*")
+source %_sysconfdir/tizen-platform.conf
+
+for list in $(find $TZ_SYS_APP_PREINSTALL -name "Modello*")
 do
-	#XWalk requires you be app to install files
-	su app -c "xwalkctl -i $list"
+	#XWalk requires you not be root to install files
+	echo "Installing $list"
+	su "$TZ_USER_NAME" -c "xwalkctl -i $list"
 done
 
-for list2 in $(ls -d /opt/home/app/.config/xwalk-service/applications/*/)
+for list2 in $(ls -d $TZ_SYS_HOME/$TZ_USER_NAME/.config/xwalk-service/applications/*/)
 do
         mkdir -p "$list2/css"
 	mkdir -p "$list2/js"
-	cp -r /opt/usr/apps/_common/js/services "$list2/js/"
-	cp -r /opt/usr/apps/_common/css/* "$list2/css/"
+	cp -r $TZ_USER_APP/_common/js/services "$list2/js/"
+	cp -r $TZ_USER_APP/_common/css/* "$list2/css/"
 done
+
+%postun xwalk
+
+source %_sysconfdir/tizen-platform.conf
+
+for list3 in $(su "$TZ_USER_NAME" -c "xwalkctl" | grep Modello | cut -c 1-32)
+do
+	echo "Uninstalling $list3"
+	su "$TZ_USER_NAME" -c "xwalkctl -u $list3"
+done
+
+#------------------------------------------------------------------------------------
 
 %package wrt
 Summary: The WRT version of Modello Installer
@@ -48,18 +74,20 @@ Installs Modello using wrt-installer
 
 %post wrt
 
-for list in $(find /opt/usr/apps/.preinstallWidgets/ -name "Modello*")
+source %_sysconfdir/tizen-platform.conf
+
+for list in $(find $TZ_SYS_APP_PREINSTALL -name "Modello*")
 do
 	#wrt-installer requires you be root to install files
         wrt-installer -i $list
 done
 
-for list2 in $(ls -d /opt/usr/apps/*/)
+for list2 in $(ls -d $TZ_USER_APP/*/)
 do
         mkdir -p "$list2/css"
         mkdir -p "$list2/js"
-        cp -r /opt/usr/apps/_common/js/services "$list2/res/wgt/js/"
-        cp -r /opt/usr/apps/_common/css/* "$list2/res/wgt/css/"
+        cp -r $TZ_USER_APP/_common/js/services "$list2/res/wgt/js/"
+        cp -r $TZ_USER_APP/_common/css/* "$list2/res/wgt/css/"
 done
 
 %files xwalk
