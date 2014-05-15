@@ -47,10 +47,10 @@ done
 
 for list2 in $(ls -d $TZ_SYS_HOME/$TZ_USER_NAME/.config/xwalk-service/applications/*/)
 do
-        mkdir -p "$list2/css"
-	mkdir -p "$list2/js"
-	cp -r $TZ_USER_APP/_common/js/services "$list2/js/"
-	cp -r $TZ_USER_APP/_common/css/* "$list2/css/"
+        su "$TZ_USER_NAME" -c "mkdir -p '$list2/css'"
+	su "$TZ_USER_NAME" -c "mkdir -p '$list2/js'"
+	su "$TZ_USER_NAME" -c "cp -r $TZ_USER_APP/_common/js/services '$list2/js/'"
+	su "$TZ_USER_NAME" -c "cp -r $TZ_USER_APP/_common/css/* '$list2/css/'"
 done
 
 %postun xwalk
