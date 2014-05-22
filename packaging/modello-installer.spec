@@ -51,6 +51,7 @@ do
 	su "$TZ_USER_NAME" -c "mkdir -p '$list2/js'"
 	su "$TZ_USER_NAME" -c "cp -r $TZ_USER_APP/_common/js/services '$list2/js/'"
 	su "$TZ_USER_NAME" -c "cp -r $TZ_USER_APP/_common/css/* '$list2/css/'"
+	su "$TZ_USER_NAME" -c "cp -r $TZ_USER_APP/_common/icons '$list2/'"
 done
 
 %postun xwalk

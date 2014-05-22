@@ -1,3 +1,6 @@
+* Thu May 22 2014 brianjjones <brian.j.jones@intel.com> submit/tizen_ivi/20140515.205426@3188659
+- Fixes for IVI-3190 - To get things to render normally
+
 * Thu May 15 2014 brianjjones <brian.j.jones@intel.com> submit/tizen_ivi/20140512.233303@cccc4a7
 - Fixing spec file to create all files as app for xwalk
 
