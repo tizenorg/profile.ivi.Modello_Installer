@@ -38,6 +38,8 @@ Installs Modello using Xwalk
 
 source %_sysconfdir/tizen-platform.conf
 
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/5000/dbus/user_bus_socket"
+
 for list in $(find $TZ_SYS_APP_PREINSTALL -name "Modello*")
 do
 	#XWalk requires you not be root to install files
