@@ -1,3 +1,6 @@
+* Wed Jun 25 2014 brianjjones <brian.j.jones@intel.com> accepted/tizen/ivi/20140526.130801-2-g16cd2d4
+- Updating spec file to work with Multi user changes - TC-1257
+
 * Thu May 22 2014 brianjjones <brian.j.jones@intel.com> submit/tizen_ivi/20140515.205426@3188659
 - Fixes for IVI-3190 - To get things to render normally
 

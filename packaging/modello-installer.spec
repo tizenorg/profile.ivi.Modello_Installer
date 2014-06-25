@@ -1,6 +1,10 @@
+%define MODELLO_INSTALL_USER app
+%define MODELLO_WIDGET_DIR /opt/usr/apps/.preinstallWidgets
+%define MODELLO_COMMON_DIR /opt/usr/apps/_common
+
 Name:       Modello_Installer
 Summary:    Installer for Modello
-Version:    0.0.1
+Version:    0.0.2
 Release:    1
 Group:      Applications/System
 License:    Apache 2.0
@@ -44,26 +48,26 @@ for list in $(find $TZ_SYS_APP_PREINSTALL -name "Modello*")
 do
 	#XWalk requires you not be root to install files
 	echo "Installing $list"
-	su "$TZ_USER_NAME" -c "xwalkctl -i $list"
+	su %{MODELLO_INSTALL_USER} -c "xwalkctl -i $list"
 done
 
-for list2 in $(ls -d $TZ_SYS_HOME/$TZ_USER_NAME/.config/xwalk-service/applications/*/)
+for list2 in $(ls -d $TZ_SYS_HOME/%{MODELLO_INSTALL_USER}/.config/xwalk-service/applications/*/)
 do
-        su "$TZ_USER_NAME" -c "mkdir -p '$list2/css'"
-	su "$TZ_USER_NAME" -c "mkdir -p '$list2/js'"
-	su "$TZ_USER_NAME" -c "cp -r $TZ_USER_APP/_common/js/services '$list2/js/'"
-	su "$TZ_USER_NAME" -c "cp -r $TZ_USER_APP/_common/css/* '$list2/css/'"
-	su "$TZ_USER_NAME" -c "cp -r $TZ_USER_APP/_common/icons '$list2/'"
+        su %{MODELLO_INSTALL_USER} -c "mkdir -p '$list2/css'"
+	su %{MODELLO_INSTALL_USER} -c "mkdir -p '$list2/js'"
+	su %{MODELLO_INSTALL_USER} -c "cp -r %{MODELLO_COMMON_DIR}/js/services '$list2/js/'"
+	su %{MODELLO_INSTALL_USER} -c "cp -r %{MODELLO_COMMON_DIR}/css/* '$list2/css/'"
+	su %{MODELLO_INSTALL_USER} -c "cp -r %{MODELLO_COMMON_DIR}/icons '$list2/'"
 done
 
 %postun xwalk
 
 source %_sysconfdir/tizen-platform.conf
 
-for list3 in $(su "$TZ_USER_NAME" -c "xwalkctl" | grep Modello | cut -c 1-32)
+for list3 in $(su %{MODELLO_INSTALL_USER} -c "xwalkctl" | grep Modello | cut -c 1-32)
 do
 	echo "Uninstalling $list3"
-	su "$TZ_USER_NAME" -c "xwalkctl -u $list3"
+	su %{MODELLO_INSTALL_USER} -c "xwalkctl -u $list3"
 done
 
 #------------------------------------------------------------------------------------
@@ -85,12 +89,12 @@ do
         wrt-installer -i $list
 done
 
-for list2 in $(ls -d $TZ_USER_APP/*/)
+for list2 in $(ls -d /opt/usr/apps/*/)
 do
         mkdir -p "$list2/css"
         mkdir -p "$list2/js"
-        cp -r $TZ_USER_APP/_common/js/services "$list2/res/wgt/js/"
-        cp -r $TZ_USER_APP/_common/css/* "$list2/res/wgt/css/"
+        cp -r %{MODELLO_COMMON_DIR}/js/services "$list2/res/wgt/js/"
+        cp -r %{MODELLO_COMMON_DIR}/css/* "$list2/res/wgt/css/"
 done
 
 %files xwalk

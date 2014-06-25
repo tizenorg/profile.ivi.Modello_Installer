@@ -1,6 +1,6 @@
 PROJECT = Modello_Installer
 
-VERSION := 0.0.1
+VERSION := 0.0.2
 PACKAGE = $(PROJECT)-$(VERSION)
 
 all:
