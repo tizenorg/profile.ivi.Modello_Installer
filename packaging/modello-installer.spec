@@ -64,6 +64,8 @@ done
 
 source %_sysconfdir/tizen-platform.conf
 
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/5000/dbus/user_bus_socket"
+
 for list3 in $(su %{MODELLO_INSTALL_USER} -c "xwalkctl" | grep Modello | cut -c 1-32)
 do
 	echo "Uninstalling $list3"

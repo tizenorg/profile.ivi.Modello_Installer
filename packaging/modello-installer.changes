@@ -1,3 +1,6 @@
+* Thu Aug 14 2014 Brian Jones <brian.j.jones@intel.com> accepted/tizen/ivi/20140626.043347-1-g506e424
+- Fix for bug TC-1496.  This allows uninstall to work when done from ssh
+
 * Wed Jun 25 2014 brianjjones <brian.j.jones@intel.com> accepted/tizen/ivi/20140526.130801-2-g16cd2d4
 - Updating spec file to work with Multi user changes - TC-1257
 
