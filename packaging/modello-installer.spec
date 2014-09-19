@@ -1,6 +1,5 @@
 %define MODELLO_INSTALL_USER app
-%define MODELLO_WIDGET_DIR /opt/usr/apps/.preinstallWidgets
-%define MODELLO_COMMON_DIR /opt/usr/apps/_common
+%define MODELLO_COMMON_DIR %{_datadir}/Modello/Common
 
 Name:       Modello_Installer
 Summary:    Installer for Modello
