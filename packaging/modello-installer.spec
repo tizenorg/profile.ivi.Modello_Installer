@@ -3,7 +3,7 @@
 
 Name:       Modello_Installer
 Summary:    Installer for Modello
-Version:    0.0.2
+Version:    0.0.3
 Release:    1
 Group:      Applications/System
 License:    Apache 2.0
@@ -47,7 +47,7 @@ for list in $(find $TZ_SYS_APP_PREINSTALL -name "Modello*")
 do
 	#XWalk requires you not be root to install files
 	echo "Installing $list"
-	su %{MODELLO_INSTALL_USER} -c "xwalkctl -i $list"
+	su %{MODELLO_INSTALL_USER} -c "pkgcmd -q -i -t wgt -p $list"
 done
 
 for list2 in $(ls -d $TZ_SYS_HOME/%{MODELLO_INSTALL_USER}/.config/xwalk-service/applications/*/)
@@ -65,10 +65,10 @@ source %_sysconfdir/tizen-platform.conf
 
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/5000/dbus/user_bus_socket"
 
-for list3 in $(su %{MODELLO_INSTALL_USER} -c "xwalkctl" | grep Modello | cut -c 1-32)
+for list3 in $(su %{MODELLO_INSTALL_USER} -c "xwalkctl" | grep Modello | cut -c 1-10)
 do
 	echo "Uninstalling $list3"
-	su %{MODELLO_INSTALL_USER} -c "xwalkctl -u $list3"
+	su %{MODELLO_INSTALL_USER} -c "pkgcmd -q -u -n $list3"
 done
 
 #------------------------------------------------------------------------------------
