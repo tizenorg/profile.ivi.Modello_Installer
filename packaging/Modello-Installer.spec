@@ -61,7 +61,7 @@ do
 	su %{MODELLO_INSTALL_USER} -c "pkgcmd -q -i -t wgt -p $list"
 done
 
-for list2 in $(ls -d $TZ_SYS_HOME/%{MODELLO_INSTALL_USER}/.config/xwalk-service/applications/*/)
+for list2 in $(ls -d $TZ_SYS_HOME/%{MODELLO_INSTALL_USER}/apps_rw/xwalk-service/applications/*/)
 do
         su %{MODELLO_INSTALL_USER} -c "mkdir -p '$list2/css'"
         su %{MODELLO_INSTALL_USER} -c "mkdir -p '$list2/js'"
