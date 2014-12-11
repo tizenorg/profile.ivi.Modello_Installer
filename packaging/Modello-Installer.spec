@@ -3,7 +3,7 @@
 
 Name:       Modello-Installer
 Summary:    Installer for Modello
-Version:    0.0.2
+Version:    0.0.3
 Release:    0
 Group:      Automotive/Modello
 License:    Apache-2.0
